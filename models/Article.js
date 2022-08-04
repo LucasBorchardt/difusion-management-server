@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 
@@ -10,6 +10,11 @@ const articleSchema = new Schema(
         },
         location: {
             type: String,
+            required: true
+        },
+        categories: {
+            type: Schema.Types.ObjectId, 
+            ref: 'Category',
             required: true
         },
         date: {
@@ -30,6 +35,8 @@ const articleSchema = new Schema(
     },
 );
 
-module.exports = model("Article", articleSchema);
+const Article = model("Article", articleSchema);
+module.exports = Article;
+
 
 
