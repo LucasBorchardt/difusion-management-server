@@ -7,7 +7,7 @@ const Category = require('../models/Category');
 
 router.get('/articles', (req, res, next) => {
     Article.find()
-    .populate('categories')
+    .populate('category')
     .then(allArticles => {
         res.json(allArticles)
     })
@@ -15,9 +15,9 @@ router.get('/articles', (req, res, next) => {
 });
 
 router.post('/articles', isAuthenticated, (req, res, next) => {
-    const { title, location, categories, date, content, externalURL, videoURL } = req.body;
+    const { title, location, category } = req.body;
 
-    Article.create({ title, location, categories: [] })
+    Article.create({ title, location, category })
         .then(response => res.json(response))
         .catch(err => res.json(err));
 });
@@ -58,9 +58,6 @@ router.delete('/articles/:articleId', isAuthenticated, (req, res, next) => {
     }
 
     Article.findByIdAndRemove(articleId)
-        .then(deteletedArticle => {
-            return Task.deleteMany({ _id: { $in: deteletedArticle.categories } });
-        })
         .then(() => res.json({ message: `Article with id ${articleId} & all associated categories were removed successfully.` }))
         .catch(error => res.status(500).json(error));
 });
