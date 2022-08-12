@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-const { Schema, model } = mongoose;
+const { Schema, model } = require("mongoose");
 
 
 const articleSchema = new Schema(
@@ -23,7 +22,7 @@ const articleSchema = new Schema(
         content: {
             type: String
         },
-        externalURL: {
+    /*    externalURL: {
             type: String
         },
         imgURL: {
@@ -31,7 +30,7 @@ const articleSchema = new Schema(
         },
         videoURL: {
             type: String
-        }
+        } */
     },
 );
 
